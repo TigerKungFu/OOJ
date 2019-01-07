@@ -26,13 +26,10 @@ import parsing.ParseFeed;
 /** EarthquakeCityMapDemo
  * An application with an interactive map displaying earthquake data.
  * Author: UC San Diego Intermediate Software Development MOOC team
- * @author Your name here
- * Date: July 17, 2015
+ * @author TigerKungFu
+ * Date: Jan 7, 2019
  * */
 public class EarthquakeCityMapDemo extends PApplet {
-
-	// You can ignore this.  It's to keep eclipse from generating a warning.
-	//private static final long serialVersionUID = 1L;
 
 	// IF YOU ARE WORKING OFFLINE, change the value of this variable to true
 	private static final boolean offline = false;
@@ -71,21 +68,21 @@ public class EarthquakeCityMapDemo extends PApplet {
 	    //STAGE 1: Markers (not associated with Features)
 	    
 	    // Create a marker at a specific location in the world, and format it
-//	    Location valLoc = new Location(-38.14f,-73.03f);
-//	    Marker val = new SimplePointMarker(valLoc);
-//	    map.addMarker(val);
+	    Location valLoc = new Location(-40.14f,-73.03f);
+	    Marker val = new SimplePointMarker(valLoc);
+	    map.addMarker(val);
 	    
 	    //STAGE 2: Features with rich data, then Marker
 	    
 	    // First create Feature for details of Valdivia earthquake
-//	    Location valLoc = new Location(-38.14f,-73.03f);
-//	    PointFeature valEq = new PointFeature(valLoc);
-//	    valEq.addProperty("title", "Valdivia, Chile");
-//	    valEq.addProperty("magnitude", "9.5");
-//	    valEq.addProperty("date", "May 22, 1960");
-//	    
-//	    Marker valMk = new SimplePointMarker(valLoc, valEq.getProperties());
-//	    map.addMarker(valMk);
+	    Location valLoc2 = new Location(-39.14f,-73.03f);
+	    PointFeature valEq = new PointFeature(valLoc2);
+	    valEq.addProperty("title", "Valdivia, Chile");
+	    valEq.addProperty("magnitude", "9.5");
+	    valEq.addProperty("date", "May 22, 1960");
+
+	    Marker valMk = new SimplePointMarker(valLoc, valEq.getProperties());
+	    map.addMarker(valMk);
 	    
 	   //STAGE 3: List of Features, then list of Markers (ADTs)
 	   // cf. http://earthquake.usgs.gov/earthquakes/world/10_largest_world.php
@@ -123,18 +120,13 @@ public class EarthquakeCityMapDemo extends PApplet {
 	    kamchatkaEq.addProperty("date", "November 4, 1952");
 	    kamchatkaEq.addProperty("year", 1952);
 
-	    
-	    List<PointFeature> bigEarthquakes = new ArrayList<PointFeature>();
-	    bigEarthquakes.add(valdiviaEq);
-	    bigEarthquakes.add(alaskaEq);
-	    bigEarthquakes.add(sumatraEq);
-	    bigEarthquakes.add(japanEq);
-	    bigEarthquakes.add(kamchatkaEq);
-//	    
 	    List<Marker> markers = new ArrayList<Marker>();
-	    for (PointFeature eq: bigEarthquakes) {
-	    	markers.add(new SimplePointMarker(eq.getLocation(), eq.getProperties()));
-	    }
+	    markers.add(createMarker(valdiviaEq));
+	    markers.add(createMarker(alaskaEq));
+	    markers.add(createMarker(sumatraEq));
+	    markers.add(createMarker(japanEq));
+	    markers.add(createMarker(kamchatkaEq));
+
 	    map.addMarkers(markers);
 //	    
 //	    
@@ -152,38 +144,32 @@ public class EarthquakeCityMapDemo extends PApplet {
 	    		mk.setColor(gray);
 	    	}
 	    }
-//	    
-	    
-	    //List<Marker> markers = new ArrayList<Marker>();
 	    
 	    // The List you will populate with new SimplePointMarkers
 	    //List<Marker> markers = new ArrayList<Marker>();
 
 	    //Use provided parser to collect properties for each earthquake
 	    //PointFeatures have a getLocation method
-	    //List<PointFeature> earthquakes = ParseFeed.parseEarthquake(this, earthquakesURL);
+	    List<PointFeature> earthquakes = ParseFeed.parseEarthquake(this, earthquakesURL);
 	    
 	    // These print statements show you (1) all of the relevant properties 
 	    // in the features, and (2) how to get one property and use it
-	    //if (earthquakes.size() > 0) {
-	    //	PointFeature f = earthquakes.get(0);
-	    //	System.out.println(f.getProperties());
-	    //	Object magObj = f.getProperty("magnitude");
-	    //	float mag = Float.parseFloat(magObj.toString());
+	    if (earthquakes.size() > 0) {
+	    	PointFeature f = earthquakes.get(0);
+	    	Object magObj = f.getProperty("magnitude");
+	    	float mag = Float.parseFloat(magObj.toString());
 	    	// PointFeatures also have a getLocation method
-	    //}
-	    
-
+			Location l = f.getLocation();
+			System.out.println(l.getLat()+" "+l.getLon());
+	    }
 
 	}
 		
 	// A suggested helper method that takes in an earthquake feature and 
 	// returns a SimplePointMarker for that earthquake
-	// TODO: Implement this method and call it from setUp, if it helps
 	private SimplePointMarker createMarker(PointFeature feature)
 	{
-		// finish implementing and use this method, if it helps.
-		return new SimplePointMarker(feature.getLocation());
+		return new SimplePointMarker(feature.getLocation(), feature.getProperties());
 	}
 	
 	public void draw() {
@@ -196,8 +182,7 @@ public class EarthquakeCityMapDemo extends PApplet {
 	// helper method to draw key in GUI
 	// TODO: Implement this method to draw the key
 	private void addKey() 
-	{	
-		// Remember you can use Processing's graphics methods here
+	{
 	
 	}
 }

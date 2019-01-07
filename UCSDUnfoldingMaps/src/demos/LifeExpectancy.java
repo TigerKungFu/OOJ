@@ -4,7 +4,6 @@ import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.providers.*;
-import de.fhpotsdam.unfolding.providers.Google.*;
 
 import java.util.List;
 import de.fhpotsdam.unfolding.data.Feature;
@@ -25,10 +24,10 @@ import de.fhpotsdam.unfolding.marker.Marker;
  */
 public class LifeExpectancy extends PApplet {
 
-	UnfoldingMap map;
-	Map<String, Float> lifeExpByCountry;
-	List<Feature> countries;
-	List<Marker> countryMarkers;
+	private UnfoldingMap map;
+	private Map<String, Float> lifeExpByCountry;
+	private List<Feature> countries;
+	private List<Marker> countryMarkers;
 
 	public void setup() {
 		size(800, 600, OPENGL);
