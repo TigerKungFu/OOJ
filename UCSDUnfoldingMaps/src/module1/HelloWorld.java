@@ -5,7 +5,6 @@ import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
-import de.fhpotsdam.unfolding.providers.Google;
 import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
@@ -20,10 +19,7 @@ public class HelloWorld extends PApplet
 	// You can ignore this.  It's to keep eclipse from reporting a warning
 	private static final long serialVersionUID = 1L;
 
-	/** This is where to find the local tiles, for working without an Internet connection */
-	private static String mbTilesString = "blankLight-1-3.mbtiles";
-	
-	// IF YOU ARE WORKING OFFLINE: Change the value of this variable to true
+    // IF YOU ARE WORKING OFFLINE: Change the value of this variable to true
 	private static final boolean offline = false;
 	
 	/** The map we use to display our home town: La Jolla, CA */
@@ -49,8 +45,9 @@ public class HelloWorld extends PApplet
 		
 		if (offline) {
 			// If you are working offline, you need to use this provider 
-			// to work with the maps that are local on your computer.  
-			provider = new MBTilesMapProvider(mbTilesString);
+			// to work with the maps that are local on your computer.
+            String mbTilesString = "blankLight-1-3.mbtiles";
+            provider = new MBTilesMapProvider(mbTilesString);
 			// 3 is the maximum zoom level for working offline
 			zoomLevel = 3;
 		}
