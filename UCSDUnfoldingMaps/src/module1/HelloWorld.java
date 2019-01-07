@@ -21,16 +21,16 @@ public class HelloWorld extends PApplet
 	private static final long serialVersionUID = 1L;
 
 	/** This is where to find the local tiles, for working without an Internet connection */
-	public static String mbTilesString = "blankLight-1-3.mbtiles";
+	private static String mbTilesString = "blankLight-1-3.mbtiles";
 	
 	// IF YOU ARE WORKING OFFLINE: Change the value of this variable to true
 	private static final boolean offline = false;
 	
 	/** The map we use to display our home town: La Jolla, CA */
-	UnfoldingMap map1;
+	private UnfoldingMap map1;
 	
 	/** The map you will use to display your home town */ 
-	UnfoldingMap map2;
+	private UnfoldingMap map2;
 
 	public void setup() {
 		size(800, 600, P2D);  // Set up the Applet window to be 800x600
